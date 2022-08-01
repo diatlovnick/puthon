@@ -8,8 +8,8 @@ with open(file='Text.txt', encoding='utf-8', mode = 'w') as file:
 file = open('Text.txt' , "r", encoding='utf-8')
 
 def split_file_lst(file) -> list:    
-    data = file.readlines()
-    lst = data.split()
+    #data = file.readlines()
+    lst = file.readline().split(' ')
     file.close()
     return lst
 def delete_word_whith_number(lst: list) -> list:
