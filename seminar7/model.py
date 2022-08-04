@@ -17,32 +17,24 @@
 #     return coord
 
 
-x = complex(0,0)
-y = complex(0,0) 
+#x = complex(0,0)
+#y = complex(0,0) 
 
 
 
-def init(a: str, b:str):
-    global x
-    global y
-    x = complex(a)
-    y = complex(b)
-
-# init('3+2j','5+1j')
-
-# print(x)
-# print(y)
+def init(a:str, b:str): return complex(a), complex(b)
 
 
-def sum():
+
+def sum(x:complex,y:complex):
     return x + y
 
 
-def sub():
+def sub(x:complex,y:complex):
     return x - y
 
-def mult():
+def mult(x:complex,y:complex):
     return x * y
 
-def div():
+def div(x:complex,y:complex):
     return x / y
