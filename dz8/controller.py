@@ -2,7 +2,7 @@ import interface
 #import change as c
 import work_with_information as w
 import view as v
-#import delete as d
+import delete as d
 def run():
     run = True
     while run:
@@ -15,6 +15,6 @@ def run():
             w.enter_task()
 #        elif option == '3':
 #            c.search_change()
-#        elif option == '4':
-#            d.delete_task()
+        elif option == '4':
+            d.delete_task()
 run()

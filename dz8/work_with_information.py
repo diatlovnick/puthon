@@ -2,6 +2,7 @@
 from datetime import datetime as dt
 from time import time
 import json as j
+import my_lib as ml
 
 
 def status_choice():
@@ -11,7 +12,7 @@ def status_choice():
                         2 - В работе
                         3 - Сделано """)
     while True:
-        choice = int(input('    Ваш выбор -> '))
+        choice = ml.is_int('    Ваш выбор -> ')
         if choice in (1,2,3):
             return st[choice-1]
         else:
@@ -24,43 +25,49 @@ def priority():
                         2 - Терпит
                         3 - Без срока """)
     while True:
-        choice = int(input('    Ваш выбор -> '))
+        choice = ml.is_int('    Ваш выбор -> ')
         if choice in (1,2,3):
             return prior[choice-1]
         else:
             print('     Некорректный ввод, Попробуйте еще раз')
 
 
+def get_id():
+    path  = r'C:\Users\w01NB001\Documents\GeekBrains\python\dz8\todolist.json'
+    try:
+        with open (path, 'r', encoding='UTF-8') as file:
+            to_do_list  = j.load(file)
+            for i in range(len(to_do_list)):
+                id = int(to_do_list[i]['ID']) + 1
+    except:
+        id = 1
+    return id
 
 
 
 
-def enter_task():#не понимаю как добавить id, чтобы потом по нему находить задачи и менять их
-    run = True
+
+def enter_task():
     result = []
-    keys = ['Дата', 'Срок', 'Задача', 'Приоритет', 'Статус', 'Исполнитель']
+    keys = ['ID', 'Дата', 'Срок', 'Задача', 'Приоритет', 'Статус', 'Исполнитель']
     print('Ввод новой задачи:')
-    while run:
-        keys = ['Дата', 'Срок', 'Задача', 'Приоритет', 'Статус', 'Исполнитель']
-        values = ['' for n in keys]#список с длиной равной количеству элементов в списке keys
-        for i in range(len(keys)):
-            if keys[i] == 'Дата':
-                values[i] = dt.now().strftime('%D')
-                continue
-            if keys[i] == 'Приоритет':
-                values[i] = priority()
-                continue
-            if keys[i] == 'Статус':
-                values[i] = status_choice()
-                continue
-            values[i] = input(keys[i] + ': ')
-        task = dict(zip(keys,values))#применяется функция зип к спискам keys и values, и из этого создаётся словарь
-        result.append(task)#добавляем словарь таск в список резалт
-        next_task = input('Ввести еще задачу? (Д/Н) ')
-        if next_task in ('д','Д','y','Y'):
+    values = ['' for n in keys]#список с длиной равной количеству элементов в списке keys
+    for i in range(len(keys)):
+        if keys[i] == 'ID':
+            values[i] = get_id()
             continue
-        else:
-            break
+        if keys[i] == 'Дата':
+            values[i] = dt.now().strftime('%D')
+            continue
+        if keys[i] == 'Приоритет':
+            values[i] = priority()
+            continue
+        if keys[i] == 'Статус':
+            values[i] = status_choice()
+            continue
+        values[i] = input(keys[i] + ': ')
+    task = dict(zip(keys,values))#применяется функция зип к спискам keys и values, и из этого создаётся словарь
+    result.append(task)#добавляем словарь таск в список резалт
     path  = r'C:\Users\w01NB001\Documents\GeekBrains\python\dz8\todolist.json'
     try:
         with open (path, 'r', encoding='UTF-8') as file:
@@ -75,6 +82,37 @@ def enter_task():#не понимаю как добавить id, чтобы п�
 
 #enter_task()
 
+
+
+                
+
+   
+# def change():#не понимаю как реализовать замену, хочу находить задачу по id, выбирать что там менять, перезаписывать конкретныую задачу, перезаписывать файл
+#     path  = r'C:\Users\w01NB001\Documents\GeekBrains\python\dz8\todolist.json'
+#     id = int(input('введите ID задачи'))
+#     with open (path, 'r', encoding='UTF-8') as file:
+#         to_do_list  = j.load(file)
+#         for i in range(0, len(to_do_list)):
+#             if id == to_do_list[i]['ID']:
+#                 change_list = []
+#                 change_keys = input("введите названия раздела который хотите изменить(Дата, Срок, Задача, Приоритет, Статус, Исполнитель)")
+#                 if  change_keys == 'Дата':
+#                     print('введите новые данные')
+#                     values = input(change_keys + ': ')
+#                     continue
+#                 task = dict(zip(change_keys,values))
+#                 change_list.append(task)
+#                 with open (path, 'r', encoding='UTF-8') as file:
+#                   to_do_list  = j.load(file)
+#                   to_do_list +=change_list
+#                       with open(path, 'w', encoding='UTF-8') as file:
+#                           j.dump(to_do_list, file, indent = 2, ensure_ascii=False)
+
+    
+    
+   
+
+    
 
 # import json
 # from datetime import datetime as dt
